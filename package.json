@@ -1,7 +1,15 @@
 {
   "name": "mcp-risk-scanner",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Local MCP configuration risk scanner for Claude, Cursor, Windsurf, and agent tools.",
+  "homepage": "https://paonan9420.github.io/mcp-risk-scanner/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PAONAN9420/mcp-risk-scanner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PAONAN9420/mcp-risk-scanner/issues"
+  },
   "type": "module",
   "bin": {
     "mcp-audit": "src/index.js",

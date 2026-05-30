@@ -4,6 +4,8 @@ Local MCP configuration risk scanner for Claude Desktop, Cursor, Windsurf, and o
 
 `mcp-audit` scans MCP configs for risky agent tool permissions before Claude, Cursor, or other AI agents touch your machine. It is local-first, dependency-free, and designed to fit both a developer laptop and CI.
 
+Landing page: https://paonan9420.github.io/mcp-risk-scanner/
+
 ## Why
 
 MCP servers are becoming the plugin layer for AI agents. That also means they can read local files, call remote services, run commands, auto-install packages, and expose secrets if configured carelessly.
