@@ -4,8 +4,8 @@
   "description": "Local MCP configuration risk scanner for Claude, Cursor, Windsurf, and agent tools.",
   "type": "module",
   "bin": {
-    "mcp-audit": "./src/index.js",
-    "mcp-risk-scanner": "./src/index.js"
+    "mcp-audit": "src/index.js",
+    "mcp-risk-scanner": "src/index.js"
   },
   "files": [
     "src",
