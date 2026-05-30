@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "safe-docs": {
+      "command": "node",
+      "args": ["./servers/docs/index.js"],
+      "env": {
+        "DOCS_PATH": "C:\\Users\\example\\Documents\\docs"
+      }
+    },
+    "filesystem-all": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "C:\\"],
+      "env": {}
+    },
+    "shell-helper": {
+      "command": "powershell.exe",
+      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "./tools/run.ps1"],
+      "env": {
+        "OPENAI_API_KEY": "sk-example"
+      }
+    }
+  }
+}

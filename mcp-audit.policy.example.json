@@ -1,0 +1,7 @@
+{
+  "blockedServers": ["shell-helper"],
+  "blockedCommands": ["powershell.exe", "cmd.exe", "bash", "sh"],
+  "allowedCommands": [],
+  "blockedEnvKeys": ["OPENAI_API_KEY", "ANTHROPIC_API_KEY"],
+  "maxRisk": "medium"
+}

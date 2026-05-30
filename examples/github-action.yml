@@ -1,0 +1,23 @@
+name: mcp-audit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  audit-mcp-config:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: your-org/mcp-audit@v0
+        with:
+          path: .mcp.json
+          policy: mcp-audit.policy.json
+          fail-on: high
+          output: mcp-audit-report.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mcp-audit-report
+          path: mcp-audit-report.json

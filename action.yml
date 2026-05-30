@@ -1,0 +1,35 @@
+name: "mcp-audit"
+description: "Scan MCP server configs for risky commands, broad filesystem access, and secret exposure."
+inputs:
+  path:
+    description: "MCP config path to scan"
+    required: false
+    default: ".mcp.json"
+  policy:
+    description: "Optional mcp-audit policy JSON path"
+    required: false
+    default: ""
+  fail-on:
+    description: "Risk threshold that fails the workflow: high, medium, low, or none"
+    required: false
+    default: "high"
+  output:
+    description: "Report output path"
+    required: false
+    default: "mcp-audit-report.json"
+runs:
+  using: "composite"
+  steps:
+    - name: Run mcp-audit
+      shell: bash
+      run: |
+        POLICY_ARGS=()
+        if [ -n "${{ inputs.policy }}" ]; then
+          POLICY_ARGS=(--policy "${{ inputs.policy }}")
+        fi
+        node "${{ github.action_path }}/src/index.js" \
+          --path "${{ inputs.path }}" \
+          "${POLICY_ARGS[@]}" \
+          --format json \
+          --output "${{ inputs.output }}" \
+          --fail-on "${{ inputs.fail-on }}"

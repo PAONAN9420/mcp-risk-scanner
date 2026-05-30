@@ -1,0 +1,41 @@
+{
+  "name": "mcp-risk-scanner",
+  "version": "0.1.0",
+  "description": "Local MCP configuration risk scanner for Claude, Cursor, Windsurf, and agent tools.",
+  "type": "module",
+  "bin": {
+    "mcp-audit": "./src/index.js",
+    "mcp-risk-scanner": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "fixtures",
+    "examples",
+    "README.md",
+    "action.yml",
+    "mcp-audit.policy.example.json"
+  ],
+  "scripts": {
+    "start": "node ./src/index.js",
+    "demo": "node ./src/index.js --path ./fixtures/sample-config.json",
+    "demo:json": "node ./src/index.js --path ./fixtures/sample-config.json --format json",
+    "demo:html": "node ./src/index.js --path ./fixtures/sample-config.json --format html --output ./reports/demo-report.html",
+    "demo:policy": "node ./src/index.js --path ./fixtures/sample-config.json --policy ./fixtures/policy.json --fail-on high",
+    "check": "npm test && npm pack --dry-run",
+    "prepublishOnly": "npm test",
+    "test": "node ./tests/run-tests.js"
+  },
+  "keywords": [
+    "mcp",
+    "security",
+    "audit",
+    "agents"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
