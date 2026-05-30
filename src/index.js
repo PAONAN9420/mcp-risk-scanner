@@ -2,9 +2,10 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
+import { requireProLicense } from "./license.js";
 import { loadPolicy, shouldFail } from "./policy.js";
 import { discoverExistingConfigPaths, scanConfigFile } from "./scanner.js";
-import { createReport, formatHtmlReport, formatTextReport } from "./report.js";
+import { createReport, formatHtmlReport, formatProHtmlReport, formatTextReport } from "./report.js";
 
 function parseArgs(argv) {
   const args = {
@@ -13,6 +14,7 @@ function parseArgs(argv) {
     output: "",
     policy: "",
     failOn: "none",
+    proDemo: false,
     help: false
   };
 
@@ -45,6 +47,8 @@ function parseArgs(argv) {
       if (!next) throw new Error("--fail-on requires high, medium, low, or none");
       args.failOn = next;
       index += 1;
+    } else if (value === "--pro-demo") {
+      args.proDemo = true;
     } else if (value === "--help" || value === "-h") {
       args.help = true;
     } else {
@@ -62,26 +66,32 @@ Usage:
   mcp-audit --path ./mcp.json
   mcp-audit --path ./mcp.json --json
   mcp-audit --path ./mcp.json --format html --output report.html
+  mcp-audit --path ./mcp.json --format pro-html --pro-demo --output report.html
   mcp-audit --policy ./mcp-audit.policy.json --fail-on high
   mcp-audit
 
 Options:
   -p, --path <file>       Scan a specific MCP config file. Repeatable.
-  -f, --format <type>     text, json, or html. Default: text.
+  -f, --format <type>     text, json, html, or pro-html. Default: text.
   -o, --output <file>     Write the report to a file.
   --json                  Alias for --format json.
   --policy <file>         Apply a team policy file.
   --fail-on <risk>        Exit 1 when max risk is high, medium, low, or none.
+  --pro-demo              Generate a watermarked pro-html sample without a license key.
 
 When no path is provided, mcp-audit checks common Claude, Cursor, Windsurf, and local project config locations.
 `);
 }
 
-function renderReport(report, format) {
+function renderReport(report, format, options = {}) {
   if (format === "text") return formatTextReport(report);
   if (format === "json") return JSON.stringify(report, null, 2);
   if (format === "html") return formatHtmlReport(report);
-  throw new Error("--format must be text, json, or html");
+  if (format === "pro-html") {
+    const license = requireProLicense({ proDemo: options.proDemo });
+    return formatProHtmlReport(report, { license });
+  }
+  throw new Error("--format must be text, json, html, or pro-html");
 }
 
 async function writeOutput(outputPath, content) {
@@ -108,7 +118,7 @@ async function main() {
   }
 
   const report = createReport(results);
-  const rendered = renderReport(report, args.format);
+  const rendered = renderReport(report, args.format, { proDemo: args.proDemo });
 
   if (args.output) {
     const writtenPath = await writeOutput(args.output, rendered);

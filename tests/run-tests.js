@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
+import { requireProLicense, validateProLicense } from "../src/license.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadPolicy } from "../src/policy.js";
@@ -52,6 +53,42 @@ await execFileAsync("node", [
 const writtenReport = JSON.parse(await fs.readFile(outputPath, "utf8"));
 assert.equal(writtenReport.summary.servers, 3);
 await fs.rm(outputDir, { recursive: true, force: true });
+
+assert.equal(validateProLicense({}).ok, false);
+assert.equal(validateProLicense({ MCP_AUDIT_LICENSE_KEY: "mcp_pro_123456" }).ok, true);
+assert.equal(requireProLicense({ proDemo: true }).mode, "demo");
+assert.throws(() => requireProLicense({ env: {} }), /MCP_AUDIT_LICENSE_KEY/);
+
+const proOutputPath = path.join(outputDir, "pro-report.html");
+await fs.mkdir(outputDir, { recursive: true });
+await execFileAsync("node", [
+  "./src/index.js",
+  "--path",
+  "./fixtures/sample-config.json",
+  "--format",
+  "pro-html",
+  "--pro-demo",
+  "--output",
+  proOutputPath
+], { cwd: projectDir });
+const proReport = await fs.readFile(proOutputPath, "utf8");
+assert.match(proReport, /MCP configuration security audit/);
+assert.match(proReport, /DEMO/);
+await fs.rm(outputDir, { recursive: true, force: true });
+
+try {
+  await execFileAsync("node", [
+    "./src/index.js",
+    "--path",
+    "./fixtures/sample-config.json",
+    "--format",
+    "pro-html"
+  ], { cwd: projectDir });
+  assert.fail("Expected pro-html without license to fail");
+} catch (error) {
+  assert.equal(error.code, 1);
+  assert.match(error.stderr, /MCP_AUDIT_LICENSE_KEY/);
+}
 
 try {
   await execFileAsync("node", [

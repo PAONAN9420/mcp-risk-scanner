@@ -9,6 +9,7 @@ npm test
 npm run demo
 npm run demo:json
 npm run demo:html
+npm run demo:pro
 npm run check
 ```
 
