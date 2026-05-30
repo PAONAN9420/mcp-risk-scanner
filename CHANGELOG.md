@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning.
 
+## 0.3.0 - 2026-05-30
+
+Paid license workflow release.
+
+### Added
+
+- Signed Pro license key validation.
+- Public-key verification for local Pro report unlocks.
+- Local license keypair initialization script.
+- Manual license generation script for Gumroad / Lemon Squeezy fulfillment.
+- Paid license operations guide.
+
 ## 0.2.0 - 2026-05-30
 
 Commercial validation release.

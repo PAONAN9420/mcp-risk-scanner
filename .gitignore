@@ -3,5 +3,6 @@ npm-debug.log*
 reports/
 coverage/
 .env
+private/
 .DS_Store
 *.tgz

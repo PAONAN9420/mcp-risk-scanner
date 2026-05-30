@@ -1,6 +1,6 @@
 {
   "name": "mcp-risk-scanner",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Local MCP configuration risk scanner for Claude, Cursor, Windsurf, and agent tools.",
   "homepage": "https://paonan9420.github.io/mcp-risk-scanner/",
   "repository": {
@@ -17,6 +17,8 @@
   },
   "files": [
     "src",
+    "scripts",
+    "keys",
     "fixtures",
     "examples",
     "README.md",
@@ -30,6 +32,8 @@
     "demo:html": "node ./src/index.js --path ./fixtures/sample-config.json --format html --output ./reports/demo-report.html",
     "demo:pro": "node ./src/index.js --path ./fixtures/sample-config.json --format pro-html --pro-demo --output ./reports/pro-demo-report.html",
     "demo:policy": "node ./src/index.js --path ./fixtures/sample-config.json --policy ./fixtures/policy.json --fail-on high",
+    "license:init": "node ./scripts/init-license-keypair.js",
+    "license:generate": "node ./scripts/generate-license.js",
     "check": "npm test && npm pack --dry-run",
     "prepublishOnly": "npm test",
     "test": "node ./tests/run-tests.js"

@@ -174,6 +174,8 @@ Initial paid offers:
 - `$199+` one-time MCP config security audit.
 - future subscription for team policy monitoring and report history.
 
+Paid-license operations are documented in [docs/PAID_LICENSES.md](./docs/PAID_LICENSES.md).
+
 ## Package name
 
 The npm package name is `mcp-risk-scanner`. The CLI command is available as both `mcp-audit` and `mcp-risk-scanner`.

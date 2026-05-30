@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { execFile } from "node:child_process";
+import { generateKeyPairSync, sign } from "node:crypto";
 import { promisify } from "node:util";
 import { requireProLicense, validateProLicense } from "../src/license.js";
 import path from "node:path";
@@ -54,8 +55,33 @@ const writtenReport = JSON.parse(await fs.readFile(outputPath, "utf8"));
 assert.equal(writtenReport.summary.servers, 3);
 await fs.rm(outputDir, { recursive: true, force: true });
 
+function base64UrlEncode(value) {
+  return Buffer.from(value)
+    .toString("base64")
+    .replaceAll("+", "-")
+    .replaceAll("/", "_")
+    .replaceAll("=", "");
+}
+
+const { privateKey, publicKey } = generateKeyPairSync("ed25519", {
+  privateKeyEncoding: { type: "pkcs8", format: "pem" },
+  publicKeyEncoding: { type: "spki", format: "pem" }
+});
+const testPayload = {
+  product: "mcp-risk-scanner-pro",
+  plan: "Test Pro",
+  email: "test@example.com",
+  orderId: "test-order",
+  issuedAt: "2026-05-30T00:00:00.000Z",
+  expiresAt: "2099-01-01T00:00:00.000Z"
+};
+const payloadEncoded = base64UrlEncode(JSON.stringify(testPayload));
+const signatureEncoded = base64UrlEncode(sign(null, Buffer.from(payloadEncoded), privateKey));
+const testLicenseKey = `mcp_pro_v1.${payloadEncoded}.${signatureEncoded}`;
+
 assert.equal(validateProLicense({}).ok, false);
-assert.equal(validateProLicense({ MCP_AUDIT_LICENSE_KEY: "mcp_pro_123456" }).ok, true);
+assert.equal(validateProLicense({ MCP_AUDIT_LICENSE_KEY: "bad-key" }).ok, false);
+assert.equal(validateProLicense({ MCP_AUDIT_LICENSE_KEY: testLicenseKey }, { publicKey }).ok, true);
 assert.equal(requireProLicense({ proDemo: true }).mode, "demo");
 assert.throws(() => requireProLicense({ env: {} }), /MCP_AUDIT_LICENSE_KEY/);
 

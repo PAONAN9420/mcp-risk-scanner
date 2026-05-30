@@ -10,6 +10,7 @@ npm run demo
 npm run demo:json
 npm run demo:html
 npm run demo:pro
+npm run license:generate -- --email test@example.com --plan "Pro Report" --order-id test
 npm run check
 ```
 
