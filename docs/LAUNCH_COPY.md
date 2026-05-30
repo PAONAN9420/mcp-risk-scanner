@@ -4,6 +4,12 @@
 
 `mcp-audit` scans your MCP configs for risky agent tool permissions before Claude, Cursor, or other AI agents touch your machine.
 
+## Paid Positioning
+
+```text
+MCP Risk Scanner Pro turns local MCP config scans into no-watermark HTML reports for AI agencies, consultants, and small teams that need a client-ready security deliverable.
+```
+
 ## Short Description
 
 MCP servers are becoming the plugin layer for AI agents. That is powerful, but it also means local configs can give agents shell access, broad filesystem access, unpinned remote packages, and API keys.
@@ -36,6 +42,12 @@ It has no runtime dependencies, runs locally, and can output text, JSON, or HTML
 The project is early. I am looking for feedback on false positives, missing MCP config locations, and additional rules that are explainable rather than noisy.
 ```
 
+Soft paid CTA:
+
+```text
+There is a paid Pro report license for people who need no-watermark HTML reports for client work. The scanner itself stays local-first and the free CLI remains usable without an account.
+```
+
 ## Reddit Draft
 
 ```text
@@ -44,6 +56,8 @@ I made a small local CLI for auditing MCP configs before connecting them to Clau
 It flags shell commands, broad filesystem paths, unpinned package runners, secret-looking env vars, and policy violations. It can also export JSON/HTML and fail CI.
 
 Would love feedback from people using MCP servers day to day: what config locations or risky patterns should it detect next?
+
+There is also a Pro report license for AI agencies and consultants who need a no-watermark HTML deliverable for client audits.
 ```
 
 ## X / Twitter Draft

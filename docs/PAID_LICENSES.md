@@ -8,7 +8,7 @@ Initial paid product:
 
 ```text
 MCP Risk Scanner Pro Report
-$49 one-time
+$39 one-time
 ```
 
 Buyer receives:
@@ -71,11 +71,13 @@ Use a digital product:
 
 ```text
 Name: MCP Risk Scanner Pro Report
-Price: $49
+Price: $39
 Delivery: license key + instructions
 ```
 
 Until automated webhooks are added, generate keys manually after purchase and email the buyer.
+
+Checkout setup, product copy, and customer email templates are maintained in [SALES_OPERATIONS.md](./SALES_OPERATIONS.md).
 
 ## Later automation
 

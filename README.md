@@ -166,15 +166,15 @@ The project has no runtime dependencies and requires Node.js 20 or newer.
 
 ## Commercial validation
 
-The static landing page lives in `site/index.html`. It positions the free CLI as the acquisition layer and Pro reports / team audits as paid offers.
+The static landing page lives in `site/index.html`. It positions the free CLI as the acquisition layer and Pro reports / team audits as paid offers for international developers and AI agencies.
 
 Initial paid offers:
 
-- `$49` one-time Pro report license.
+- `$39` one-time Pro report license.
 - `$199+` one-time MCP config security audit.
 - future subscription for team policy monitoring and report history.
 
-Paid-license operations are documented in [docs/PAID_LICENSES.md](./docs/PAID_LICENSES.md).
+Sales setup, checkout copy, and customer delivery are documented in [docs/SALES_OPERATIONS.md](./docs/SALES_OPERATIONS.md). Paid-license generation is documented in [docs/PAID_LICENSES.md](./docs/PAID_LICENSES.md).
 
 ## Package name
 

@@ -3,18 +3,31 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>mcp-risk-scanner - MCP config security audits</title>
-    <meta name="description" content="Scan Claude, Cursor, Windsurf, and project MCP configs for risky AI agent tool permissions.">
+    <title>MCP Risk Scanner Pro - paid MCP security reports</title>
+    <meta name="description" content="Sellable MCP security scanner for Claude, Cursor, Windsurf, and AI agent configs. Free CLI, paid Pro reports, and agency audits.">
     <style>
       :root {
         color-scheme: light;
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        color: #13202f;
-        background: #f5f7fa;
+        color: #17202a;
+        background: #f7f8f3;
+        --ink: #17202a;
+        --muted: #5d6978;
+        --line: #dce2d2;
+        --paper: #fffdf7;
+        --green: #1f8f5f;
+        --green-dark: #11613f;
+        --amber: #d47a2a;
+        --red: #b63f34;
+        --blue: #2b628c;
       }
 
       * {
         box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
       }
 
       body {
@@ -26,7 +39,7 @@
       }
 
       .hero {
-        min-height: 78vh;
+        min-height: 88vh;
         display: grid;
         align-items: center;
         position: relative;
@@ -34,41 +47,44 @@
         background-image: url("./assets/pro-report-preview.png");
         background-size: cover;
         background-position: center top;
-        color: #ffffff;
-        padding: 28px 22px 58px;
+        color: #fff;
+        padding: 26px 22px 72px;
       }
 
       .hero::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: rgba(8, 14, 22, 0.76);
+        background:
+          linear-gradient(90deg, rgba(17, 25, 30, 0.94) 0%, rgba(17, 25, 30, 0.82) 46%, rgba(17, 25, 30, 0.56) 100%),
+          rgba(17, 25, 30, 0.58);
         z-index: -1;
       }
 
       nav {
         position: absolute;
         inset: 0 0 auto;
-        height: 70px;
+        height: 72px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        max-width: 1160px;
+        max-width: 1180px;
         width: calc(100% - 44px);
         margin: 0 auto;
       }
 
       .brand {
-        font-weight: 900;
+        font-weight: 950;
         letter-spacing: 0;
       }
 
       .nav-links {
         display: flex;
-        gap: 16px;
+        gap: 18px;
         align-items: center;
-        color: #d7e0ea;
+        color: #e5ebdf;
         font-size: 14px;
+        font-weight: 700;
       }
 
       .nav-links a {
@@ -76,10 +92,10 @@
       }
 
       .hero-inner {
-        max-width: 1160px;
+        max-width: 1180px;
         width: 100%;
         margin: 0 auto;
-        padding-top: 80px;
+        padding-top: 86px;
       }
 
       .eyebrow {
@@ -89,14 +105,15 @@
         border: 1px solid rgba(255, 255, 255, 0.24);
         border-radius: 999px;
         padding: 7px 10px;
-        color: #bcebd1;
+        color: #c9f3dc;
         font-size: 13px;
-        font-weight: 800;
+        font-weight: 850;
         margin-bottom: 18px;
+        background: rgba(255, 255, 255, 0.07);
       }
 
       h1 {
-        max-width: 780px;
+        max-width: 820px;
         margin: 0;
         font-size: 60px;
         line-height: 1.02;
@@ -104,9 +121,9 @@
       }
 
       .hero-copy {
-        max-width: 720px;
+        max-width: 710px;
         margin: 18px 0 0;
-        color: #dce6ef;
+        color: #edf2e8;
         font-size: 20px;
         line-height: 1.5;
       }
@@ -125,57 +142,102 @@
         min-height: 44px;
         border-radius: 6px;
         padding: 11px 15px;
-        font-weight: 850;
+        font-weight: 900;
         text-decoration: none;
         border: 1px solid transparent;
+        transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
       }
 
       .button.primary {
-        background: #31c48d;
-        color: #082116;
+        background: #34d28d;
+        color: #092316;
       }
 
       .button.secondary {
-        color: #ffffff;
-        border-color: rgba(255, 255, 255, 0.32);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.34);
         background: rgba(255, 255, 255, 0.08);
+      }
+
+      .button.light {
+        color: var(--ink);
+        border-color: #ccd7bf;
+        background: #fff;
       }
 
       .command {
         display: inline-block;
         margin-top: 18px;
         max-width: 100%;
-        background: rgba(4, 10, 18, 0.76);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(7, 13, 16, 0.82);
+        border: 1px solid rgba(255, 255, 255, 0.22);
         border-radius: 8px;
         padding: 13px 14px;
         overflow-wrap: anywhere;
         color: #d7fbe8;
         font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 14px;
       }
 
       main {
-        max-width: 1160px;
+        max-width: 1180px;
         margin: 0 auto;
-        padding: 34px 22px 56px;
+        padding: 34px 22px 58px;
       }
 
       section {
-        margin-bottom: 42px;
+        margin-bottom: 46px;
       }
 
       h2 {
         margin: 0 0 12px;
-        font-size: 32px;
+        font-size: 33px;
         line-height: 1.15;
+        letter-spacing: 0;
       }
 
       .section-copy {
-        max-width: 760px;
+        max-width: 790px;
         margin: 0 0 20px;
-        color: #546477;
+        color: var(--muted);
         font-size: 17px;
         line-height: 1.55;
+      }
+
+      .band {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 24px 0;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .metric {
+        min-height: 112px;
+        border-left: 4px solid var(--green);
+        background: #fff;
+        padding: 15px;
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 24px;
+        line-height: 1.15;
+      }
+
+      .metric span {
+        display: block;
+        margin-top: 7px;
+        color: var(--muted);
+        line-height: 1.42;
       }
 
       .grid {
@@ -185,8 +247,8 @@
       }
 
       .card {
-        background: #ffffff;
-        border: 1px solid #dde5ee;
+        background: var(--paper);
+        border: 1px solid var(--line);
         border-radius: 8px;
         padding: 18px;
       }
@@ -198,7 +260,7 @@
 
       .card p,
       .card li {
-        color: #536273;
+        color: var(--muted);
         line-height: 1.5;
       }
 
@@ -220,12 +282,25 @@
       }
 
       .muted {
-        color: #64748b;
+        color: var(--muted);
       }
 
       .featured {
-        border-color: #31c48d;
-        box-shadow: 0 0 0 2px rgba(49, 196, 141, 0.15);
+        border-color: var(--green);
+        box-shadow: 0 0 0 2px rgba(31, 143, 95, 0.14);
+        background: #ffffff;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 900;
+        color: #123524;
+        background: #d8f6e5;
       }
 
       .two-col {
@@ -239,25 +314,63 @@
         display: block;
         width: 100%;
         border-radius: 8px;
-        border: 1px solid #d6dee8;
+        border: 1px solid #d4dbc9;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .step {
+        padding: 16px 0;
+        border-top: 3px solid var(--amber);
+      }
+
+      .step strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .step p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .checkout-note {
+        border: 1px solid #e5cda8;
+        background: #fff7e6;
+        color: #5c3a0f;
+        border-radius: 8px;
+        padding: 14px;
+        line-height: 1.5;
       }
 
       footer {
-        border-top: 1px solid #dbe3ed;
+        border-top: 1px solid var(--line);
         padding-top: 20px;
         color: #687789;
         font-size: 14px;
       }
 
-      @media (max-width: 900px) {
+      @media (max-width: 920px) {
         .grid,
         .pricing,
-        .two-col {
+        .two-col,
+        .metrics,
+        .steps {
           grid-template-columns: 1fr;
         }
 
         h1 {
           font-size: 42px;
+        }
+
+        .hero {
+          min-height: 86vh;
+          background-position: center top;
         }
 
         .hero-copy {
@@ -273,121 +386,176 @@
   <body>
     <header class="hero">
       <nav>
-        <div class="brand">mcp-risk-scanner</div>
+        <div class="brand">MCP Risk Scanner Pro</div>
         <div class="nav-links">
           <a href="#pricing">Pricing</a>
+          <a href="#workflow">Workflow</a>
           <a href="#pro">Pro report</a>
           <a href="https://github.com/PAONAN9420/mcp-risk-scanner">GitHub</a>
         </div>
       </nav>
       <div class="hero-inner">
-        <div class="eyebrow">Local-first MCP security audit</div>
-        <h1>Audit MCP configs before AI agents get tool access.</h1>
+        <div class="eyebrow">Free CLI + paid Pro security reports</div>
+        <h1>Audit MCP configs before AI agents get access to files, shells, and tokens.</h1>
         <p class="hero-copy">
-          Scan Claude Desktop, Cursor, Windsurf, and project MCP configs for shell access, broad filesystem permissions, unpinned package runners, exposed secrets, and team policy violations.
+          A local-first scanner for Claude Desktop, Cursor, Windsurf, and project MCP configs. Use the free CLI for quick checks, then sell or share client-ready Pro reports when a real audit needs a clean deliverable.
         </p>
         <div class="actions">
-          <a class="button primary" href="https://github.com/PAONAN9420/mcp-risk-scanner">View on GitHub</a>
-          <a class="button secondary" href="#pricing">See paid options</a>
+          <a class="button primary" href="#pricing">Buy Pro - $39</a>
+          <a class="button secondary" href="https://www.npmjs.com/package/mcp-risk-scanner">Run the free CLI</a>
         </div>
         <code class="command">npx mcp-risk-scanner@latest --path ./mcp.json --fail-on high</code>
       </div>
     </header>
 
     <main>
+      <section class="band">
+        <div class="metrics">
+          <div class="metric">
+            <strong>Local-first</strong>
+            <span>Config files do not need to leave the developer machine.</span>
+          </div>
+          <div class="metric">
+            <strong>0 deps</strong>
+            <span>No runtime package tree to audit before running the scanner.</span>
+          </div>
+          <div class="metric">
+            <strong>CI-ready</strong>
+            <span>Fail pull requests when high-risk MCP configs are introduced.</span>
+          </div>
+          <div class="metric">
+            <strong>Pro export</strong>
+            <span>Generate HTML reports built for founders, teams, and clients.</span>
+          </div>
+        </div>
+      </section>
+
       <section>
-        <h2>Built for the new agent stack</h2>
+        <h2>Built for developers shipping AI-agent workflows</h2>
         <p class="section-copy">
-          MCP is becoming the plugin layer for AI agents. That makes config files a real security surface: a single server can expose files, credentials, shells, browsers, and automation hooks.
+          MCP is the new plugin layer for agent tooling. That makes small JSON config files a real attack surface: a single server entry can launch shells, read broad filesystem paths, install remote packages, or expose secrets through environment variables.
         </p>
         <div class="grid">
           <article class="card">
-            <h3>Developer laptops</h3>
-            <p>Find risky MCP servers installed locally before Claude, Cursor, or Windsurf can use them during coding sessions.</p>
+            <h3>Solo developers</h3>
+            <p>Check local Claude, Cursor, Windsurf, and project configs before giving an agent tool access during a coding session.</p>
           </article>
           <article class="card">
-            <h3>Team repositories</h3>
-            <p>Add JSON policies and CI thresholds so high-risk MCP config changes fail before they land in main.</p>
+            <h3>AI agencies</h3>
+            <p>Run scans before handing client work back, then attach a readable Pro report with risks and remediation steps.</p>
           </article>
           <article class="card">
-            <h3>Client audits</h3>
-            <p>Generate a structured Pro report with executive summary, high-risk findings, and remediation checklist.</p>
+            <h3>Small teams</h3>
+            <p>Add a policy file and GitHub Action so risky MCP config changes get caught before they reach the main branch.</p>
           </article>
         </div>
       </section>
 
       <section id="pro" class="two-col">
         <div>
-          <h2>Pro reports turn scans into client-ready deliverables</h2>
+          <h2>Pro reports are the paid product</h2>
           <p class="section-copy">
-            The free CLI is enough for quick checks. Pro reports are designed for founders, agencies, and consultants who need to explain risk to a team and hand over a remediation plan.
+            The free CLI earns trust and distribution through npm. The paid upgrade unlocks cleaner reporting, commercial usage, and a deliverable that agencies can send to customers without rewriting scan output by hand.
           </p>
           <div class="card">
-            <h3>What the Pro report adds</h3>
+            <h3>What Pro adds</h3>
             <ul>
+              <li>Client-ready HTML report without demo watermark.</li>
               <li>Executive summary for non-security stakeholders.</li>
-              <li>Prioritized high-risk findings table.</li>
-              <li>Remediation checklist for MCP configs.</li>
-              <li>Server-by-server risk detail.</li>
-              <li>Local-only export; configs are not uploaded.</li>
+              <li>Prioritized high-risk finding table.</li>
+              <li>Remediation checklist for MCP config owners.</li>
+              <li>Signed offline license key; no hosted account required.</li>
             </ul>
           </div>
         </div>
-        <img class="screenshot" src="./assets/pro-report-preview.png" alt="mcp-risk-scanner Pro report preview">
+        <img class="screenshot" src="./assets/pro-report-preview.png" alt="MCP Risk Scanner Pro report preview">
       </section>
 
       <section id="pricing">
-        <h2>Pricing path</h2>
+        <h2>Simple pricing for the first paid launch</h2>
         <p class="section-copy">
-          The free CLI stays open source. Paid options focus on report quality, team policy, and hands-on audit delivery.
+          Start with one-time purchase because it is easier for indie developers and AI agencies to say yes. Add subscription plans after rules, report history, or hosted team monitoring become recurring value.
         </p>
         <div class="pricing">
           <article class="card">
             <h3>Open Source</h3>
             <div class="price">$0</div>
-            <p class="muted">For individual developers checking local MCP configs.</p>
+            <p class="muted">For developers checking their own machine.</p>
             <ul>
-              <li>Text, JSON, and basic HTML reports</li>
+              <li>Text and JSON output</li>
+              <li>Basic HTML report</li>
               <li>Policy file support</li>
               <li>GitHub Action scaffold</li>
             </ul>
+            <div class="actions">
+              <a class="button light" href="https://www.npmjs.com/package/mcp-risk-scanner">Use free CLI</a>
+            </div>
           </article>
           <article class="card featured">
-            <h3>Pro Report</h3>
-            <div class="price">$49</div>
-            <p class="muted">One-time license for polished local Pro report exports.</p>
+            <h3>Pro Report <span class="badge">Best first offer</span></h3>
+            <div class="price">$39</div>
+            <p class="muted">One-time license for paid report exports.</p>
             <ul>
-              <li>Executive summary</li>
-              <li>Remediation checklist</li>
-              <li>Client-ready HTML report</li>
+              <li>No-watermark Pro HTML reports</li>
+              <li>Commercial use for client work</li>
+              <li>Signed local license key</li>
+              <li>Free updates for the 0.x line</li>
             </ul>
+            <div class="actions">
+              <a class="button primary" href="https://github.com/PAONAN9420/mcp-risk-scanner/issues/new?title=Buy%20MCP%20Risk%20Scanner%20Pro&body=I%20want%20to%20buy%20MCP%20Risk%20Scanner%20Pro.%0A%0AUse%20case%3A%0ACompany%20or%20project%3A%0APreferred%20checkout%3A%20Gumroad%20or%20Lemon%20Squeezy%0A">Request license</a>
+            </div>
           </article>
           <article class="card">
-            <h3>Team Audit</h3>
+            <h3>Agency Audit</h3>
             <div class="price">$199+</div>
-            <p class="muted">One-time MCP config review for small AI-agent-heavy teams.</p>
+            <p class="muted">One-time review for teams using MCP in production workflows.</p>
             <ul>
-              <li>Risk report</li>
+              <li>Config risk review</li>
               <li>Policy file setup</li>
-              <li>48-hour remediation checklist</li>
+              <li>Remediation checklist</li>
+              <li>Follow-up report export</li>
             </ul>
+            <div class="actions">
+              <a class="button light" href="https://github.com/PAONAN9420/mcp-risk-scanner/issues/new?title=Agency%20MCP%20audit%20request">Request audit</a>
+            </div>
           </article>
+        </div>
+      </section>
+
+      <section id="workflow">
+        <h2>How a paid customer gets value</h2>
+        <div class="steps">
+          <div class="step">
+            <strong>1. Buy Pro</strong>
+            <p>Customer purchases the one-time license through Gumroad, Lemon Squeezy, or the manual request link.</p>
+          </div>
+          <div class="step">
+            <strong>2. Receive license</strong>
+            <p>You generate a signed license key and send the customer a short setup email.</p>
+          </div>
+          <div class="step">
+            <strong>3. Run locally</strong>
+            <p>The customer sets the license key in their shell and runs the npm CLI against local MCP config files.</p>
+          </div>
+          <div class="step">
+            <strong>4. Export report</strong>
+            <p>They get a polished HTML report with findings, risk level, and remediation checklist.</p>
+          </div>
         </div>
       </section>
 
       <section>
-        <h2>Early access offer</h2>
+        <h2>Ready for checkout wiring</h2>
         <p class="section-copy">
-          Checkout links are intentionally not wired yet. First users should come from direct feedback so pricing, report shape, and policy rules can be tuned before a public paid launch.
+          The current public button uses GitHub issue intake so the page is honest before a payment account is configured. Once a Gumroad or Lemon Squeezy product is live, replace the Pro button URL with the checkout link and the product can accept one-time purchases.
         </p>
-        <div class="actions">
-          <a class="button primary" href="https://github.com/PAONAN9420/mcp-risk-scanner/issues/new?title=Pro%20Report%20license%20request">Request Pro license</a>
-          <a class="button secondary" style="color:#13202f;border-color:#cbd5e1;background:#fff;" href="https://github.com/PAONAN9420/mcp-risk-scanner/releases/tag/v0.1.0">Download v0.1.0</a>
+        <div class="checkout-note">
+          Recommended first checkout: Gumroad product named <strong>MCP Risk Scanner Pro Report</strong>, permalink <strong>mcp-risk-scanner-pro</strong>, price <strong>$39</strong>, license keys enabled, post-purchase instructions copied from <strong>docs/SALES_OPERATIONS.md</strong>.
         </div>
       </section>
 
       <footer>
-        mcp-risk-scanner is local-first. Paid plans are for report exports, policies, and audit workflows; MCP configs do not need to leave your machine.
+        MCP Risk Scanner is local-first. Paid plans are for report exports, policies, commercial usage, and audit workflows; MCP configs do not need to leave the customer's machine.
       </footer>
     </main>
   </body>
